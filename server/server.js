@@ -4,7 +4,6 @@ const booksRouter = require('./routes/books.router.js')
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const bookList = [];
 const movieList = [];
 
 // express static file serving - public is the folder name
@@ -15,7 +14,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 // Tell express ap to use booksRouter mini-app
-app.use('/', booksRouter) // to be explained
+// My books miniapp lives inside the /book url
+app.use('/book', booksRouter) // to be explained
 
 
 // Start server listening on PORT
@@ -35,11 +35,11 @@ app.post('/book', (req, res) => {
 });
 */
 
-router.get('/movie', (req, res) => {
+app.get('/movie', (req, res) => {
   res.send(movieList);
 });
 
-router.post('/movie', (req, res) => {
+app.post('/movie', (req, res) => {
   movieList.push(req.body);
   res.sendStatus(200);
 });
